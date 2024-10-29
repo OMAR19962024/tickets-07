@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParKinG RenZo C9 - Ticket</title>
+    <style>
+        @media print {
+            body { 
+                width: 58mm;
+                margin: 0;
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 58mm;
+            margin: 0 auto;
+            padding: 3px;
+            background: #fff;
+            font-weight: bold;
+        }
+        
+        .ticket-container {
+            border: 1px solid #000;
+            padding: 5px;
+            background: #fff;
+        }
+
+        h1 {
+            font-size: 18px;
+            text-align: center;
+            margin: 0;
+            padding: 2px 0;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            border-bottom: 2px double #000;
+        }
+        
+        h2 {
+            font-size: 16px;
+            text-align: center;
+            margin: 2px 0;
+            padding: 2px;
+            text-transform: uppercase;
+            font-weight: 900;
+            border-bottom: 2px solid #000;
+        }
+        
+        .ticket-info {
+            margin: 5px 0;
+        }
+        
+        .ticket-row {
+            margin: 3px 0;
+        }
+        
+        .label {
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #000;
+            display: block;
+            margin-bottom: -2px;
+        }
+        
+        .value {
+            font-size: 16px;
+            font-weight: 900;
+            display: block;
+            border-bottom: 1px dashed #000;
+            padding-bottom: 1px;
+        }
+        
+        .total-section {
+            border: 2px solid #000;
+            padding: 5px;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        .total-label {
+            font-size: 14px;
+            display: block;
+            text-transform: uppercase;
+            margin-bottom: -2px;
+            font-weight: 900;
+        }
+        
+        .total-value {
+            font-size: 24px;
+            font-weight: 900;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 10px;
+            border-top: 1px solid #000;
+            padding-top: 2px;
+            font-weight: 900;
+        }
+        
+        #printBtn {
+            display: block;
+            width: 100%;
+            padding: 8px;
+            background: #000;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .timestamp {
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            margin: 4px 0;
+            padding: 4px;
+            font-weight: 900;
+            border: 2px solid #000;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket-container">
+        <h1>ParKinG RenZo C9</h1>
+        <h2>Ticket Salida</h2>
+        
+        <div class="timestamp" id="fechaHora"></div>
+        
+        <div class="ticket-info">
+            <div class="ticket-row">
+                <span class="label">Ticket ID</span>
+                <span class="value" id="ticketId"></span>
+            </div>
+            <div class="ticket-row">
+                <span class="label">Cliente</span>
+                <span class="value" id="nombre"></span>
+            </div>
+            <div class="ticket-row">
+                <span class="label">Carnet</span>
+                <span class="value" id="carnet"></span>
+            </div>
+            <div class="ticket-row">
+                <span class="label">Duración</span>
+                <span class="value" id="tiempo"></span>
+            </div>
+        </div>
+        
+        <div class="total-section">
+            <span class="total-label">Total a Pagar</span>
+            <span class="total-value">Bs <span id="total"></span></span>
+        </div>
+        
+        <div class="footer">
+            ¡Gracias por su visita!
+        </div>
+    </div>
+
+    <script>
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                id: params.get('id') || 'N/A',
+                fechaHora: params.get('fechaHora') || new Date().toLocaleString(),
+                nombre: params.get('nombre') || 'N/A',
+                carnet: params.get('carnet') || 'N/A',
+                tiempo: params.get('tiempo') || 'N/A',
+                total: params.get('total') || '0'
+            };
+        }
+            const data = getUrlParams();
+            document.getElementById('ticketId').textContent = data.id;
+            document.getElementById('fechaHora').textContent = data.fechaHora;
+            document.getElementById('nombre').textContent = data.nombre;
+            document.getElementById('carnet').textContent = data.carnet;
+            document.getElementById('tiempo').textContent = data.tiempo;
+            document.getElementById('total').textContent = data.total;
+              
+            // Imprimir automáticamente
+            window.onload = function() {
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+    </script>
+</body>
+</html>
